@@ -1,0 +1,4 @@
+# Tells GitHub Pages to serve this site as plain static files instead of
+# running it through Jekyll. Nothing in the repo needs Jekyll processing,
+# and without this file Jekyll would silently skip any path starting with
+# an underscore, present or future.
