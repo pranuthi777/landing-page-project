@@ -249,20 +249,24 @@
       }
 
       /* Otherwise ask the server which candidate actually holds the homepage.
-         fetch HEAD is cheap and returns 200 only for a real file. */
+         A miss (404) means "try one level up", not "give up". Probes run
+         strictly one after another, so rewrite() fires exactly once. */
+      var bases = ['./', '../', '../../', '../../../', '../../../../', '/'];
       probe(0);
 
       function probe(index) {
         if (index >= bases.length) { rewrite('/'); return; }
 
         var base = bases[index];
-        var url = base + 'index.html';
 
         var request = new XMLHttpRequest();
-        request.open('HEAD', url, true);
+        request.open('HEAD', base + 'index.html', true);
         request.onload = function () {
-          /* status 0 means the request never completed, so try the next one. */
-          rewrite(request.status >= 200 && request.status < 400 ? base : null);
+          if (request.status >= 200 && request.status < 400) {
+            rewrite(base);
+          } else {
+            probe(index + 1);
+          }
         };
         request.onerror = function () { probe(index + 1); };
         request.ontimeout = function () { probe(index + 1); };
@@ -272,11 +276,6 @@
           request.send(null);
         } catch (err) {
           probe(index + 1);
-        }
-
-        /* Guard against a base that never answers. */
-        if (index === bases.length - 1) {
-          window.setTimeout(function () { rewrite('/'); }, 4200);
         }
       }
 
