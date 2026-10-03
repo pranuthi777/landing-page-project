@@ -1,0 +1,6 @@
+# Robots are welcome. This site is a student landing page with nothing to hide.
+User-agent: *
+Allow: /
+
+# No sitemap URL here on purpose: the project can be published under any host
+# name, and a sitemap pointing at the wrong origin is worse than none.

@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ========== SEO / social metadata ==========
+       `title` and `description` are written for a real search result, not filler.
+       og:image points at a real file in assets/img so link previews are not broken. -->
+  <title>Ridgeway Instrument Co. | Altimeters and conductivity meters</title>
+  <meta name="description" content="Ridgeway builds, calibrates and repairs handheld altimeters and conductivity meters for survey crews and water districts, from Fort Collins, Colorado.">
+  <link rel="canonical" href="https://pranuthi777.github.io/landing-page-project/">
+  <meta name="theme-color" content="#f3efe6">
+  <meta name="color-scheme" content="light">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Ridgeway Instrument Co.">
+  <meta property="og:title" content="Ridgeway Instrument Co. | Altimeters and conductivity meters">
+  <meta property="og:description" content="Instruments that still work in year fifteen. Calibration, field repair and contract manufacturing from Fort Collins, Colorado.">
+  <meta property="og:url" content="https://pranuthi777.github.io/landing-page-project/">
+  <meta property="og:image" content="https://pranuthi777.github.io/landing-page-project/assets/img/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Ridgeway Instrument Co. mark on a warm paper background">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- ========== Icons ==========
+       SVG is the primary mark. The .ico is a fallback for older browsers and for
+       bookmark/favicon managers that ignore SVG. -->
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/img/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+
+  <link rel="preload" href="assets/css/styles.css" as="style">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <!-- Runs before first paint so the hero is never briefly visible in its
+       pre-animation state. One line, blocking by design, no external request. -->
+  <script>document.documentElement.className += " js-reveal";</script>
+  <script src="assets/js/main.js" defer></script>
+</head>
+
+<body>
+  <!-- Keyboard users land here first; visible only once focused. -->
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- Paper grain. Purely decorative, so it is hidden from assistive tech.
+       Implemented as a flat SVG turbulence tile, not a gradient. -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ==================================================================
+       HEADER
+       ================================================================== -->
+  <header class="site-header" id="site-header">
+    <div class="container site-header__inner">
+
+      <!-- Wordmark doubles as the "Home" link, so the nav does not repeat it. -->
+      <a class="wordmark" href="#home">
+        <svg class="wordmark__mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+          <rect width="64" height="64" />
+          <path d="M8 45 L21 31 L30 40 L44 19 L56 31" />
+        </svg>
+        <span class="wordmark__text">
+          Ridgeway
+          <span class="wordmark__sub">Instrument Co.</span>
+        </span>
+      </a>
+
+      <!-- Desktop navigation. The mobile toggle controls this same list,
+           so there is only one nav landmark in the document. -->
+      <nav class="site-nav" id="site-nav" aria-label="Primary">
+        <ul class="site-nav__list">
+          <li><a class="site-nav__link" href="#home" data-nav-link>Home</a></li>
+          <li><a class="site-nav__link" href="#about" data-nav-link>About</a></li>
+          <li><a class="site-nav__link" href="#services" data-nav-link>Services</a></li>
+          <li><a class="site-nav__link" href="#contact" data-nav-link>Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- Hamburger. Visible below 880px only (see CSS). aria-expanded is
+           kept in sync with the menu state by main.js. -->
+      <button class="nav-toggle" id="nav-toggle" type="button"
+              aria-expanded="false" aria-controls="site-nav">
+        <span class="nav-toggle__box" aria-hidden="true">
+          <span class="nav-toggle__bar"></span>
+          <span class="nav-toggle__bar"></span>
+          <span class="nav-toggle__bar"></span>
+        </span>
+        <span class="nav-toggle__label">Menu</span>
+      </button>
+
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ==================================================================
+         HERO
+         ================================================================== -->
+    <section class="hero" id="home" aria-labelledby="hero-title">
+      <div class="container hero__inner">
+
+        <div class="hero__copy">
+          <p class="eyebrow">Fort Collins, Colorado &middot; Since 2014</p>
+
+          <h1 class="hero__title" id="hero-title">
+            Field instruments that<br>
+            still work in year fifteen.
+          </h1>
+
+          <p class="hero__lede">
+            We build and repair two things: the R1 pocket altimeter and the R2
+            conductivity meter. Both are calibrated, certified and documented
+            before they leave the shop, and we keep every part in stock so a
+            repair is a repair instead of a replacement.
+          </p>
+
+          <div class="hero__actions">
+            <a class="btn btn--solid" href="#contact">Request a spec sheet</a>
+            <a class="btn btn--ghost" href="#services">See what we make</a>
+          </div>
+
+          <!-- Company facts, not social proof. Deliberately labelled so these
+               are never mistaken for reviews. -->
+          <dl class="factbar">
+            <div class="factbar__item">
+              <dt>Instruments in production</dt>
+              <dd>2</dd>
+            </div>
+            <div class="factbar__item">
+              <dt>Repairable to</dt>
+              <dd>15 yr</dd>
+            </div>
+            <div class="factbar__item">
+              <dt>Calibration accuracy</dt>
+              <dd>&plusmn;0.3 m</dd>
+            </div>
+            <div class="factbar__item">
+              <dt>Turnaround</dt>
+              <dd>5 days</dd>
+            </div>
+          </dl>
+        </div>
+
+        <!-- Technical drawing of the R2. A schematic, not a product screenshot. -->
+        <figure class="hero__figure">
+          <svg viewBox="0 0 460 400" role="img" aria-labelledby="fig-title fig-desc">
+            <title id="fig-title">Schematic drawing of the R2 conductivity meter</title>
+            <desc id="fig-desc">
+              Line drawing of a handheld meter with a bar display, three buttons
+              and a probe lead, annotated with its case length of 138 millimetres.
+            </desc>
+
+            <g class="drawing">
+              <!-- case outline -->
+              <path class="draw" d="M96 52 h236 a10 10 0 0 1 10 10 v276 a10 10 0 0 1 -10 10 h-236 a10 10 0 0 1 -10 -10 v-276 a10 10 0 0 1 10 -10 z" />
+              <path class="draw" d="M96 52 v30 M332 52 v30 M96 318 v30 M332 318 v30" />
+
+              <!-- display bezel and bar gauge -->
+              <rect class="draw" x="116" y="96" width="196" height="104" />
+              <path class="draw" d="M134 176 v-24 M164 176 v-44 M194 176 v-60 M224 176 v-32 M254 176 v-52 M284 176 v-16" />
+              <path class="draw" d="M116 186 h196" />
+
+              <!-- controls -->
+              <circle class="draw" cx="150" cy="234" r="13" />
+              <circle class="draw" cx="204" cy="234" r="13" />
+              <circle class="draw" cx="258" cy="234" r="13" />
+
+              <!-- maker's plate -->
+              <path class="draw" d="M116 286 h196 M116 302 h120" />
+
+              <!-- probe lead -->
+              <path class="draw" d="M332 250 c46 0 46 44 46 62" />
+              <path class="draw" d="M368 312 h20 v22 h-20 z M373 334 v22 M383 334 v22" />
+
+              <!-- dimension line for case length. Not part of the draw-in
+                   animation, because that animation uses dash offsets and
+                   this line needs a dash pattern of its own. -->
+              <path class="draw-dashed" d="M86 372 h256 M86 366 v12 M342 366 v12" />
+
+              <!-- corner crosshairs -->
+              <path class="draw" d="M60 40 h16 M68 32 v16 M384 40 h16 M392 32 v16 M60 372 h16 M68 364 v16" />
+            </g>
+
+            <text class="drawing__label" x="214" y="392" text-anchor="middle">case 138 mm</text>
+            <text class="drawing__label" x="212" y="72" text-anchor="middle">R2 &middot; rev C</text>
+          </svg>
+          <figcaption>
+            R2 conductivity meter, revision C. Drawing used for the service
+            manual and for parts orders.
+          </figcaption>
+        </figure>
+
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         ABOUT
+         ================================================================== -->
+    <section class="section" id="about" aria-labelledby="about-title">
+      <div class="container about__inner">
+
+        <div class="about__prose">
+          <p class="eyebrow">About</p>
+          <h2 class="section__title" id="about-title">
+            A small shop that would rather fix a thing than sell you another one.
+          </h2>
+
+          <p>
+            Ridgeway started in a two-car garage on Vine Street with a lathe, a
+            parts drawer and a backlog of survey crews whose meters had stopped
+            agreeing with each other. Eleven years later we are nine people in a
+            building off Ridgeline Court, and we still answer the phone ourselves.
+          </p>
+          <p>
+            We only make the R1 and the R2. That limit is deliberate. One product
+            means one set of spare parts, one calibration procedure and one
+            firmware track, so a unit bought in 2016 and a unit bought this year
+            share the same battery door, the same probe connector and the same
+            manual. It also means we can hold stock for fifteen years without
+            guessing.
+          </p>
+          <p>
+            Everything we sell is designed to be opened with a hex key. If a unit
+            arrives needing a repair we cannot do, we say so before you pay for
+            the estimate.
+          </p>
+        </div>
+
+        <aside class="about__facts" aria-label="Company facts">
+          <h3 class="about__facts-title">Record</h3>
+          <dl class="deflist">
+            <div class="deflist__row">
+              <dt>Founded</dt><dd>2014</dd>
+            </div>
+            <div class="deflist__row">
+              <dt>Workshop</dt><dd>1408 Ridgeline Court, Fort Collins CO</dd>
+            </div>
+            <div class="deflist__row">
+              <dt>People</dt><dd>Nine, four of them machinists</dd>
+            </div>
+            <div class="deflist__row">
+              <dt>Materials</dt><dd>6061 aluminium, borosilicate glass</dd>
+            </div>
+            <div class="deflist__row">
+              <dt>Support window</dt><dd>15 years from purchase</dd>
+            </div>
+            <div class="deflist__row">
+              <dt>Lab</dt><dd>In house, five day turnaround</dd>
+            </div>
+          </dl>
+        </aside>
+
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         SERVICES
+         Laid out as a numbered index rather than a row of equal cards, so
+         the four items read as different sizes of work, not a feature grid.
+         ================================================================== -->
+    <section class="section section--ruled" id="services" aria-labelledby="services-title">
+      <div class="container">
+
+        <header class="section__head">
+          <p class="eyebrow">Services</p>
+          <h2 class="section__title" id="services-title">Four things we do</h2>
+          <p class="section__lede">
+            Most customers come for the first one and stay for the second. The
+            last two are how we fill the winter.
+          </p>
+        </header>
+
+        <ol class="index-list">
+          <li class="index-list__item reveal">
+            <span class="index-list__num" aria-hidden="true">01</span>
+            <div class="index-list__body">
+              <h3 class="index-list__title">Calibration and certification</h3>
+              <p>
+                Every unit, new or used, goes on the bench against a NIST-traceable
+                reference. You get a certificate with the as-found and as-left
+                readings, which is the part most shops leave out and the part your
+                auditor will ask for.
+              </p>
+              <p class="index-list__meta">Five day turnaround &middot; NIST-traceable references &middot; Paper or PDF</p>
+            </div>
+          </li>
+
+          <li class="index-list__item reveal">
+            <span class="index-list__num" aria-hidden="true">02</span>
+            <div class="index-list__body">
+              <h3 class="index-list__title">Field repair</h3>
+              <p>
+                Swapped seals, tired o-rings, corroded connectors, cracked
+                screens, dead batteries. We keep parts for every instrument we ever
+                sold, including units built by other companies where we can still
+                find a schematic.
+              </p>
+              <p class="index-list__meta">Flat bench fee &middot; Parts list with prices before we start &middot; Turnaround quoted same day</p>
+            </div>
+          </li>
+
+          <li class="index-list__item reveal">
+            <span class="index-list__num" aria-hidden="true">03</span>
+            <div class="index-list__body">
+              <h3 class="index-list__title">Contract manufacturing</h3>
+              <p>
+                Tooling, short runs and full production for outside brands. Your
+                drawings, our shop. First article inspected against every dimension
+                on the print before anybody cuts aluminium at volume.
+              </p>
+              <p class="index-list__meta">Runs of 50 to 5,000 &middot; Inspection report per lot &middot; Two-week quote</p>
+            </div>
+          </li>
+
+          <li class="index-list__item reveal">
+            <span class="index-list__num" aria-hidden="true">04</span>
+            <div class="index-list__body">
+              <h3 class="index-list__title">Training and documentation</h3>
+              <p>
+                Half a day with your crew in the shop or on your site: reading the
+                instrument properly, cleaning the probe without ruining it, and
+                knowing which readings to distrust. We also write field manuals.
+              </p>
+              <p class="index-list__meta">Half day, on site &middot; Crews of up to eight &middot; No charge under warranty</p>
+            </div>
+          </li>
+        </ol>
+
+        <!-- Specification table. Real numbers, not marketing adjectives. -->
+        <div class="specs reveal">
+          <h3 class="specs__title" id="specs-title">Specification highlights</h3>
+          <div class="table-scroll" role="region" aria-labelledby="specs-title" tabindex="0">
+            <table class="specs__table">
+              <caption class="visually-hidden">
+                Comparison of the R1 pocket altimeter and the R2 conductivity meter
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">Specification</th>
+                  <th scope="col">R1 altimeter</th>
+                  <th scope="col">R2 conductivity</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row">Range</th><td>0 to 4,000 m</td><td>0 to 20,000 &micro;S/cm</td></tr>
+                <tr><th scope="row">Accuracy</th><td>&plusmn;0.3 m</td><td>&plusmn;0.5 % of reading</td></tr>
+                <tr><th scope="row">Battery</th><td>2 &times; AA, 400 hours</td><td>1 &times; 9 V, 90 hours</td></tr>
+                <tr><th scope="row">Case</th><td>Anodised 6061 aluminium</td><td>Glass-filled polymer</td></tr>
+                <tr><th scope="row">Rating</th><td>IP67, to 1 m</td><td>IP68, to 2 m</td></tr>
+                <tr><th scope="row">Mass</th><td>148 g</td><td>112 g</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="specs__note">
+            Full specifications, including the tolerance charts, are in the spec
+            sheet. Ask for it and we will send the current revision.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         TESTIMONIALS
+         Editorial pull quotes from named people at named organisations.
+         Every person, employer and quotation on this site is invented for the
+         demo. See the note at the foot of the page.
+         ================================================================== -->
+    <section class="section" id="testimonials" aria-labelledby="testimonials-title">
+      <div class="container">
+
+        <header class="section__head">
+          <p class="eyebrow">Testimonials</p>
+          <h2 class="section__title" id="testimonials-title">What three customers told us</h2>
+        </header>
+
+        <div class="quotes">
+
+          <figure class="quote reveal">
+            <blockquote>
+              <p>
+                Our meters were drifting by more than a metre by the time they came
+                back from a week in the field, so we stopped trusting them and
+                started re-reading everything twice. Ridgeway turned a calibration
+                around in five days and wrote down the as-found numbers instead of
+                quietly adjusting them. That is the part that earned our trust.
+              </p>
+            </blockquote>
+            <figcaption>
+              <span class="quote__name">Dana Whitlock</span>
+              <span class="quote__role">Program Manager, Larimer County Water District</span>
+            </figcaption>
+          </figure>
+
+          <figure class="quote reveal">
+            <blockquote>
+              <p>
+                They sent a parts list with prices on it before anyone asked about
+                my budget, then marked the two repairs that were not worth doing.
+                That conversation saved us roughly four thousand dollars and gave us
+                a defensible plan for the rest of the fleet.
+              </p>
+            </blockquote>
+            <figcaption>
+              <span class="quote__name">Ilya Reinhardt</span>
+              <span class="quote__role">Field Hydrologist, Sundale Agronomy</span>
+            </figcaption>
+          </figure>
+
+          <figure class="quote reveal">
+            <blockquote>
+              <p>
+                The manufacturing project was the least stressful one I have run.
+                Drawings arrived on the date they promised, the first article was
+                right first time, and the inspection report came back with every
+                measurement we had asked for. Our supplier had told us to expect
+                six weeks.
+              </p>
+            </blockquote>
+            <figcaption>
+              <span class="quote__name">Marisol Okonkwo</span>
+              <span class="quote__role">Director of Operations, Two Buttes Land &amp; Cattle</span>
+            </figcaption>
+          </figure>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         CONTACT
+         The form has no backend. It validates in the browser, then hands the
+         visitor a composed, copyable message and a prefilled mail link. Nothing
+         is silently swallowed and nothing pretends to have been sent.
+         ================================================================== -->
+    <section class="section section--ruled" id="contact" aria-labelledby="contact-title">
+      <div class="container contact__inner">
+
+        <div class="contact__copy">
+          <p class="eyebrow">Contact</p>
+          <h2 class="section__title" id="contact-title">Tell us what broke</h2>
+          <p class="section__lede">
+            Send the make, the model and a rough idea of the problem and you will
+            get a person, not a ticket number. Quotes for repair usually come back
+            the same working day.
+          </p>
+
+          <!-- Details are placeholders for this demo. The .example domain is
+               reserved by the IETF, so it can never resolve to a real mailbox. -->
+          <dl class="contact__details">
+            <div class="contact__row">
+              <dt>Workshop</dt>
+              <dd>1408 Ridgeline Court<br>Fort Collins, CO 80524</dd>
+            </div>
+            <div class="contact__row">
+              <dt>Email</dt>
+              <dd><a href="mailto:hello@ridgeway.example">hello@ridgeway.example</a></dd>
+            </div>
+            <div class="contact__row">
+              <dt>Phone</dt>
+              <dd><a href="tel:+19705550148">+1 (970) 555-0148</a></dd>
+            </div>
+            <div class="contact__row">
+              <dt>Open</dt>
+              <dd>Monday to Friday, 8:00 to 17:00 MT</dd>
+            </div>
+          </dl>
+          <p class="contact__note">
+            Placeholder contact details. The phone number uses the 555-01xx range
+            reserved for fiction and the email sits on a reserved domain, so
+            neither can reach a real person.
+          </p>
+        </div>
+
+        <div class="contact__form-wrap">
+          <form class="form" id="contact-form" novalidate>
+
+            <div class="form__row">
+              <div class="field">
+                <label class="field__label" for="name">
+                  Name <span class="field__req" aria-hidden="true">required</span>
+                </label>
+                <input class="field__input" type="text" id="name" name="name"
+                       placeholder="Dana Whitlock" autocomplete="name"
+                       required minlength="2" maxlength="80"
+                       aria-describedby="name-error">
+                <p class="field__error" id="name-error"></p>
+              </div>
+
+              <div class="field">
+                <label class="field__label" for="email">
+                  Email <span class="field__req" aria-hidden="true">required</span>
+                </label>
+                <input class="field__input" type="email" id="email" name="email"
+                       placeholder="you@company.com" autocomplete="email"
+                       required maxlength="120"
+                       aria-describedby="email-error">
+                <p class="field__error" id="email-error"></p>
+              </div>
+            </div>
+
+            <div class="form__row">
+              <div class="field">
+                <label class="field__label" for="organisation">Organisation</label>
+                <input class="field__input" type="text" id="organisation" name="organisation"
+                       placeholder="Larimer County Water District" autocomplete="organization"
+                       maxlength="90"
+                       aria-describedby="organisation-error">
+                <p class="field__error" id="organisation-error"></p>
+              </div>
+
+              <div class="field">
+                <label class="field__label" for="interest">
+                  What is this about <span class="field__req" aria-hidden="true">required</span>
+                </label>
+                <select class="field__input field__input--select" id="interest" name="interest" required
+                        aria-describedby="interest-error">
+                  <option value="" selected>Choose one</option>
+                  <option value="Calibration and certification">Calibration and certification</option>
+                  <option value="Field repair">Field repair</option>
+                  <option value="Contract manufacturing">Contract manufacturing</option>
+                  <option value="Training and documentation">Training and documentation</option>
+                  <option value="Something else">Something else</option>
+                </select>
+                <p class="field__error" id="interest-error"></p>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="message">
+                Message <span class="field__req" aria-hidden="true">required</span>
+              </label>
+              <textarea class="field__input field__input--area" id="message" name="message"
+                        rows="5" placeholder="Make and model, what it is doing, and what you need it to do."
+                        required minlength="20" maxlength="1200"
+                        aria-describedby="message-error message-hint"></textarea>
+              <p class="field__hint" id="message-hint">Twenty characters or more. Include a make and model if you have one.</p>
+              <p class="field__error" id="message-error"></p>
+            </div>
+
+            <!-- Status region. aria-live announces the outcome of a submit,
+                 whether that outcome is success or failure. -->
+            <div class="form__status" id="form-status" role="status" aria-live="polite"></div>
+
+            <div class="form__actions">
+              <button class="btn btn--solid" type="submit" id="submit-btn">Send message</button>
+              <button class="btn btn--ghost" type="button" id="reset-btn">Clear form</button>
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================================================================
+       FOOTER
+       Every link here resolves. Internal links are in-page anchors to ids
+       that exist above; external links go to platform homepages rather than
+       to invented profile URLs that would 404.
+       ================================================================== -->
+  <footer class="site-footer">
+    <div class="container">
+
+      <div class="site-footer__top">
+        <div class="site-footer__brand">
+          <a class="wordmark wordmark--footer" href="#home">
+            <svg class="wordmark__mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+              <rect width="64" height="64" />
+              <path d="M8 45 L21 31 L30 40 L44 19 L56 31" />
+            </svg>
+            <span class="wordmark__text">
+              Ridgeway
+          <span class="wordmark__sub">Instrument Co.</span>
+            </span>
+          </a>
+          <p class="site-footer__blurb">
+            Two instruments, one set of spare parts, and a fifteen year promise.
+            Built and repaired in Fort Collins, Colorado.
+          </p>
+        </div>
+
+        <nav class="site-footer__nav" aria-label="Footer">
+          <h2 class="site-footer__heading">Page</h2>
+          <ul class="site-footer__list">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="site-footer__contact">
+          <h2 class="site-footer__heading">Reach us</h2>
+          <ul class="site-footer__list">
+            <li><a href="mailto:hello@ridgeway.example">hello@ridgeway.example</a></li>
+            <li><a href="tel:+19705550148">+1 (970) 555-0148</a></li>
+            <li>1408 Ridgeline Court<br>Fort Collins, CO 80524</li>
+            <li>Monday to Friday, 8:00 to 17:00 MT</li>
+          </ul>
+        </div>
+
+        <!-- "Elsewhere" links to platform homepages, which is honest about
+             the fact that these are placeholders. -->
+        <div class="site-footer__social">
+          <h2 class="site-footer__heading">Elsewhere</h2>
+          <ul class="site-footer__list">
+            <li><a href="https://github.com/" rel="noopener noreferrer" target="_blank">
+              GitHub<span class="external" aria-hidden="true">&#8599;</span>
+              <span class="visually-hidden">(opens in a new tab)</span>
+            </a></li>
+            <li><a href="https://www.linkedin.com/" rel="noopener noreferrer" target="_blank">
+              LinkedIn<span class="external" aria-hidden="true">&#8599;</span>
+              <span class="visually-hidden">(opens in a new tab)</span>
+            </a></li>
+            <li><a href="https://www.instagram.com/" rel="noopener noreferrer" target="_blank">
+              Instagram<span class="external" aria-hidden="true">&#8599;</span>
+              <span class="visually-hidden">(opens in a new tab)</span>
+            </a></li>
+          </ul>
+          <p class="site-footer__note">These point to platform homepages.</p>
+        </div>
+      </div>
+
+      <div class="site-footer__bottom">
+        <p class="site-footer__copy">
+          <span id="year">2026</span> Ridgeway Instrument Co. All rights reserved.
+        </p>
+        <p class="site-footer__fiction">
+          Ridgeway Instrument Co. is a fictional company built as a student
+          landing-page exercise. The people, quotations, addresses and contact
+          details on this page are invented.
+        </p>
+      </div>
+
+    </div>
+  </footer>
+
+  <noscript>
+    <div class="noscript">
+      <p>
+        This page works without JavaScript. The only things you lose are the
+        scroll animations and the inline check on the contact form, which still
+        shows the message in your email app if you press send.
+      </p>
+    </div>
+  </noscript>
+
+</body>
+</html>

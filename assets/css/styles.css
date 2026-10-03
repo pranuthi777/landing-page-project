@@ -1,0 +1,1028 @@
+/* ============================================================================
+   RIDGEWAY INSTRUMENT CO. — stylesheet
+   ----------------------------------------------------------------------------
+   Contents
+     01. Design tokens
+     02. Reset and base elements
+     03. Typography helpers
+     04. Layout helpers (container, sections, rules)
+     05. Accessibility helpers
+     06. Paper grain
+     07. Header and navigation
+     08. Buttons
+     09. Hero
+     10. About
+     11. Services and specification table
+     12. Testimonials
+     13. Contact and form
+     14. Footer
+     15. Reveal animations
+     16. Responsive overrides (880px, 620px)
+     17. Reduced motion and print
+
+   Approach: warm paper ground, ink type, one accent. Flat colour only, hairline
+   rules instead of shadows, near-square corners. Mobile first, then min-width
+   queries. No web fonts, so there is no flash of unstyled or reflowed text.
+   ========================================================================= */
+
+
+/* 01. Design tokens ======================================================= */
+:root {
+  /* Colour. The page ground is a warm off-white paper tone, never #fff. */
+  --paper:        #f3efe6;
+  --paper-sunk:   #ece6d9;
+  --paper-raised: #f8f5ee;
+  --ink:          #1b1a15;
+  --ink-soft:     #4b473c;
+  /* Chosen to clear 4.5:1 on --paper, --paper-sunk and --paper-raised alike,
+     so muted labels stay readable on any surface they land on. */
+  --ink-faint:    #676250;
+  --ink-ghost:    #79735f;   /* placeholder text only, 4.1:1 on --paper */
+  --rule:         #d5cdb9;
+  --rule-strong:  #1b1a15;
+  --accent:       #a63d22;
+  --accent-dark:  #7e2d17;
+  --accent-wash:  #f0e2da;
+
+  /* Type. System serif for reading, system mono for labels and data. */
+  --font-display: "Iowan Old Style", "Palatino Linotype", Palatino,
+                  "Book Antiqua", Georgia, "Times New Roman", ui-serif, serif;
+  --font-body:    "Iowan Old Style", "Palatino Linotype", Palatino,
+                  Georgia, "Book Antiqua", ui-serif, serif;
+  --font-mono:    ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas,
+                  "Liberation Mono", monospace;
+
+  /* A fluid scale. clamp() keeps headings proportional without breakpoints. */
+  --step-hero:  clamp(2.6rem, 1.35rem + 5.6vw, 5.35rem);
+  --step-h2:    clamp(1.9rem, 1.3rem + 2.2vw, 3rem);
+  --step-h3:    clamp(1.2rem, 1.06rem + 0.55vw, 1.45rem);
+  --step-lede:  clamp(1.1rem, 1.02rem + 0.4vw, 1.32rem);
+  --step-body:  1.0625rem;
+  --step-small: 0.8125rem;
+  --step-label: 0.6875rem;
+
+  /* Spacing. A 4px-based scale used through the page. */
+  --gap-xs: 0.35rem;
+  --gap-sm: 0.7rem;
+  --gap:    1.15rem;
+  --gap-lg: 2rem;
+  --gap-xl: 3.25rem;
+  --gap-2xl: clamp(3.75rem, 2.4rem + 4vw, 6.5rem);
+
+  --container: 1180px;
+  --gutter: clamp(1.15rem, 0.5rem + 2.6vw, 3rem);
+
+  /* Corners stay tight. No soft blobs, no pill buttons. */
+  --radius: 2px;
+
+  --header-h: 66px;
+  --measure: 66ch;
+}
+
+
+/* 02. Reset and base ====================================================== */
+*, *::before, *::after { box-sizing: border-box; }
+
+* { margin: 0; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  /* Anchor targets clear the sticky header instead of hiding under it. */
+  scroll-padding-top: calc(var(--header-h) + 1.5rem);
+}
+
+body {
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--step-body);
+  line-height: 1.62;
+  /* Belt and braces against stray wide children causing sideways scroll.
+     Real overflow is avoided in the layout, this is only a safety net. */
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img, svg, picture { display: block; max-width: 100%; }
+img { height: auto; }
+
+ul, ol { list-style: none; padding: 0; }
+
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: var(--accent-dark); }
+
+button, input, select, textarea {
+  font: inherit;
+  color: inherit;
+  margin: 0;
+}
+button { background: none; border: 0; cursor: pointer; }
+
+/* One consistent focus ring for every interactive element. */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+::selection { background: var(--accent); color: var(--paper-raised); }
+
+
+/* 03. Typography helpers ================================================== */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+p { text-wrap: pretty; }
+
+/* Small mono label. Used for eyebrows, meta lines and section numbers. */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--step-label);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: var(--gap);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+
+/* 04. Layout ============================================================= */
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section { padding-block: var(--gap-2xl); }
+
+/* Hairline above a section, used to separate long page without blocks of colour. */
+.section--ruled { border-top: 1px solid var(--rule); }
+
+.section__head { max-width: var(--measure); margin-bottom: var(--gap-xl); }
+
+.section__title {
+  font-size: var(--step-h2);
+  max-width: 22ch;
+}
+
+.section__lede {
+  margin-top: var(--gap);
+  font-size: var(--step-lede);
+  color: var(--ink-soft);
+  max-width: 52ch;
+}
+
+
+/* 05. Accessibility helpers ============================================== */
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -120%);
+  z-index: 200;
+  background: var(--ink);
+  color: var(--paper-raised);
+  font-family: var(--font-mono);
+  font-size: var(--step-small);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.8rem 1.4rem;
+  border: 1px solid var(--ink);
+}
+.skip-link:focus-visible {
+  transform: translate(-50%, 0);
+  color: var(--paper-raised);
+}
+
+
+/* 06. Paper grain ======================================================== */
+/* A flat SVG turbulence tile at very low opacity. Texture, not a gradient. */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.site-header, main, .site-footer { position: relative; z-index: 1; }
+
+
+/* 07. Header ============================================================= */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--paper);
+  border-bottom: 1px solid transparent;
+}
+/* Added by JS once the page scrolls. Colour and a rule only, no shadow. */
+.site-header.is-stuck {
+  border-bottom-color: var(--rule);
+  background: var(--paper-raised);
+}
+
+.site-header__inner {
+  min-height: var(--header-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap);
+}
+
+/* --- wordmark --- */
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+  color: var(--ink);
+  padding-block: 0.4rem;
+}
+.wordmark__mark { width: 26px; height: 26px; flex: none; }
+.wordmark__mark rect { fill: var(--ink); }
+.wordmark__mark path {
+  fill: none;
+  stroke: var(--paper-raised);
+  stroke-width: 6;
+  stroke-linejoin: miter;
+}
+.wordmark__text {
+  font-family: var(--font-display);
+  font-size: 1.18rem;
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+}
+.wordmark__sub {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.wordmark:hover .wordmark__mark path { stroke: var(--accent); }
+
+/* --- primary nav --- */
+.site-nav__list { display: flex; align-items: center; gap: clamp(0.4rem, 1.6vw, 1.5rem); }
+
+.site-nav__link {
+  display: block;
+  padding: 0.5rem 0.15rem;
+  font-family: var(--font-mono);
+  font-size: var(--step-small);
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  color: var(--ink-soft);
+  border-bottom: 1px solid transparent;
+}
+.site-nav__link:hover { color: var(--ink); border-bottom-color: var(--rule-strong); }
+/* aria-current="page" is set on the link for the visible section. */
+.site-nav__link[aria-current="true"] {
+  color: var(--ink);
+  border-bottom-color: var(--accent);
+}
+
+/* --- hamburger --- */
+.nav-toggle {
+  display: none;
+  align-items: center;
+  gap: 0.55rem;
+  /* 44px minimum tap target. */
+  min-height: 44px;
+  padding: 0.55rem 0.85rem;
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius);
+  color: var(--ink);
+}
+.nav-toggle__label {
+  font-family: var(--font-mono);
+  font-size: var(--step-label);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.nav-toggle__box {
+  position: relative;
+  display: block;
+  width: 18px;
+  height: 12px;
+  flex: none;
+}
+.nav-toggle__bar {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 1.5px;
+  background: currentColor;
+  transition: transform 0.22s ease, opacity 0.15s ease, top 0.22s ease;
+}
+.nav-toggle__bar:nth-child(1) { top: 0; }
+.nav-toggle__bar:nth-child(2) { top: 5.25px; }
+.nav-toggle__bar:nth-child(3) { top: 10.5px; }
+
+/* Open state: the three bars fold into a cross. */
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(1) { top: 5.25px; transform: rotate(45deg); }
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(3) { top: 5.25px; transform: rotate(-45deg); }
+
+
+/* 08. Buttons ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  /* min 44px tall, per the touch target guidance. */
+  min-height: 44px;
+  padding: 0.7rem 1.35rem;
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius);
+  font-family: var(--font-mono);
+  font-size: var(--step-small);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  text-align: center;
+  /* Only a colour and border change on hover. No lift, no glow, no movement. */
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.btn--solid { background: var(--ink); color: var(--paper-raised); border-color: var(--ink); }
+.btn--solid:hover { background: var(--accent); border-color: var(--accent); color: var(--paper-raised); }
+
+.btn--ghost { background: transparent; color: var(--ink); }
+.btn--ghost:hover { background: var(--ink); color: var(--paper-raised); border-color: var(--ink); }
+
+.btn:active { transform: none; }
+
+
+/* 09. Hero =============================================================== */
+.hero { padding-block: clamp(2.75rem, 1.6rem + 4vw, 5rem) var(--gap-2xl); }
+
+.hero__inner {
+  display: grid;
+  grid-template-columns: 1fr;      /* mobile: stacked */
+  gap: var(--gap-xl);
+  align-items: start;
+}
+
+.hero__title {
+  font-size: var(--step-hero);
+  letter-spacing: -0.025em;
+  /* Slightly tighter leading than the body so the headline reads as a block. */
+  line-height: 1.02;
+}
+
+.hero__lede {
+  margin-top: var(--gap-lg);
+  max-width: 54ch;
+  font-size: var(--step-lede);
+  color: var(--ink-soft);
+}
+
+.hero__actions {
+  margin-top: var(--gap-lg);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+/* --- fact bar --- */
+.factbar {
+  margin-top: var(--gap-xl);
+  padding-top: var(--gap);
+  border-top: 1px solid var(--rule);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--gap) var(--gap);
+}
+.factbar__item dt {
+  font-family: var(--font-mono);
+  font-size: var(--step-label);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  order: 2;
+}
+.factbar__item dd {
+  order: 1;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+  line-height: 1.1;
+  margin-bottom: 0.15rem;
+}
+.factbar__item { display: flex; flex-direction: column; }
+
+/* --- schematic drawing --- */
+.hero__figure { margin: 0; }
+.hero__figure svg {
+  width: 100%;
+  height: auto;
+  color: var(--ink);
+}
+.hero__figure .drawing path,
+.hero__figure .drawing rect,
+.hero__figure .drawing circle {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.25;
+  vector-effect: non-scaling-stroke;
+}
+.hero__figure .draw-dashed { stroke-dasharray: 3 4; }
+.hero__figure .drawing__label {
+  fill: var(--ink-faint);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.hero__figure figcaption {
+  margin-top: var(--gap);
+  padding-top: var(--gap-sm);
+  border-top: 1px solid var(--rule);
+  font-size: var(--step-small);
+  color: var(--ink-faint);
+  max-width: 46ch;
+}
+
+
+/* 10. About ============================================================== */
+.about__inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--gap-xl);
+}
+.about__prose p { max-width: var(--measure); }
+.about__prose p + p { margin-top: var(--gap); }
+.about__prose .section__title { margin-bottom: var(--gap-lg); }
+
+.about__facts {
+  background: var(--paper-sunk);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: var(--gap-lg);
+  align-self: start;
+}
+.about__facts-title {
+  font-family: var(--font-mono);
+  font-size: var(--step-label);
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  padding-bottom: var(--gap-sm);
+  border-bottom: 1px solid var(--rule);
+}
+
+.deflist__row {
+  display: grid;
+  /* Label and value sit side by side on wider screens, stacked on phones. */
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.1rem var(--gap);
+  padding-block: 0.7rem;
+  border-bottom: 1px solid var(--rule);
+}
+.deflist__row:last-child { border-bottom: 0; padding-bottom: 0; }
+.deflist dt {
+  font-family: var(--font-mono);
+  font-size: var(--step-label);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.deflist dd { font-size: var(--step-small); line-height: 1.5; }
+
+
+/* 11. Services =========================================================== */
+.index-list {
+  border-top: 1px solid var(--rule-strong);
+}
+
+.index-list__item {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--gap-sm) var(--gap-lg);
+  padding-block: var(--gap-lg);
+  border-bottom: 1px solid var(--rule);
+}
+.index-list__num {
+  font-family: var(--font-mono);
+  font-size: var(--step-small);
+  letter-spacing: 0.12em;
+  color: var(--accent);
+}
+.index-list__title { font-size: var(--step-h3); margin-bottom: 0.5rem; }
+.index-list__body p { max-width: var(--measure); }
+.index-list__meta {
+  margin-top: 0.65rem;
+  font-family: var(--font-mono);
+  font-size: var(--step-label);
+  letter-spacing: 0.06em;
+  color: var(--ink-faint);
+}
+
+/* --- specification table --- */
+.specs { margin-top: var(--gap-2xl); }
+.specs__title {
+  font-size: var(--step-h3);
+  padding-bottom: var(--gap-sm);
+  border-bottom: 1px solid var(--rule-strong);
+}
+.specs__note {
+  margin-top: var(--gap-sm);
+  font-size: var(--step-small);
+  color: var(--ink-faint);
+  max-width: 60ch;
+}
+
+/* Wrapped in a focusable region so keyboard users can scroll it on small
+   screens. The table itself never forces the page wider than the viewport. */
+.table-scroll { overflow-x: auto; }
+
+.specs__table {
+  width: 100%;
+  min-width: 30rem;              /* becomes a scroll region, not overflow */
+  border-collapse: collapse;
+  font-size: var(--step-small);
+}
+.specs__table th,
+.specs__table td {
+  text-align: left;
+  padding: 0.7rem 1rem 0.7rem 0;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+.specs__table thead th {
+  font-family: var(--font-mono);
+  font-size: var(--step-label);
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  border-bottom-color: var(--rule-strong);
+}
+.specs__table tbody th {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: var(--step-label);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  width: 42%;
+}
+.specs__table tbody tr:hover { background: var(--paper-sunk); }
+
+
+/* 12. Testimonials ======================================================= */
+.quotes {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--gap-xl);
+}
+.quote {
+  margin: 0;
+  padding-top: var(--gap);
+  border-top: 1px solid var(--rule-strong);
+}
+.quote blockquote p {
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 1.02rem + 0.7vw, 1.5rem);
+  line-height: 1.42;
+  letter-spacing: -0.01em;
+  text-indent: -0.42em;          /* hanging quote mark, typographic detail */
+}
+.quote blockquote p::before { content: "\201C"; color: var(--accent); }
+.quote blockquote p::after  { content: "\201D"; color: var(--accent); }
+.quote figcaption {
+  margin-top: var(--gap);
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+.quote__name { font-size: var(--step-body); }
+.quote__role {
+  font-family: var(--font-mono);
+  font-size: var(--step-label);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+
+/* 13. Contact and form =================================================== */
+.contact__inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--gap-xl);
+}
+.contact__details {
+  margin-top: var(--gap-xl);
+  border-top: 1px solid var(--rule);
+}
+.contact__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.1rem var(--gap);
+  padding-block: 0.7rem;
+  border-bottom: 1px solid var(--rule);
+}
+.contact__row dt {
+  font-family: var(--font-mono);
+  font-size: var(--step-label);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.contact__row dd { font-size: var(--step-small); line-height: 1.55; }
+
+/* Email and phone links stand alone in their own row, so on small screens
+   they are padded out to a full tap target rather than being 17px of text. */
+.contact__row dd a,
+.site-footer__list a[href^="mailto:"],
+.site-footer__list a[href^="tel:"] {
+  display: inline-block;
+  min-height: 44px;
+  padding-block: 0.45rem;
+}
+@media (min-width: 880px) {
+  /* On wide screens these sit inline, where padding would look odd. */
+  .contact__row dd a,
+  .site-footer__list a[href^="mailto:"],
+  .site-footer__list a[href^="tel:"] { min-height: 0; padding-block: 0; }
+}
+.contact__note {
+  margin-top: var(--gap);
+  font-size: var(--step-small);
+  color: var(--ink-faint);
+  max-width: 48ch;
+}
+
+.form {
+  background: var(--paper-raised);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: var(--gap-lg);
+}
+.form__row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--gap);
+}
+
+.field { margin-bottom: var(--gap); }
+.field__label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: var(--step-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.field__req { color: var(--ink-faint); text-transform: none; letter-spacing: 0.04em; }
+
+.field__input {
+  width: 100%;
+  min-height: 44px;
+  padding: 0.6rem 0.7rem;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+.field__input::placeholder { color: var(--ink-ghost); opacity: 1; }  /* opacity fix for Firefox */
+.field__input:hover { border-color: var(--ink-faint); }
+.field__input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+  border-color: var(--accent);
+  background: #fff;              /* inputs only: enough contrast to type on */
+}
+.field__input--area { resize: vertical; min-height: 7.5rem; }
+.field__input--select { appearance: none; background-image: none; padding-right: 0.7rem; }
+
+.field__hint {
+  margin-top: 0.4rem;
+  font-size: var(--step-small);
+  color: var(--ink-faint);
+}
+.field__error {
+  margin-top: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: var(--step-label);
+  letter-spacing: 0.04em;
+  color: var(--accent-dark);
+}
+.field__error:empty { display: none; }
+
+/* Invalid state is only painted once the field has actually failed. */
+.field__input[aria-invalid="true"] { border-color: var(--accent-dark); background: var(--accent-wash); }
+
+/* --- status messages --- */
+.form__status { margin-bottom: var(--gap); }
+.form__status:empty { display: none; }
+
+.status {
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--rule-strong);
+  border-left-width: 3px;        /* a thin rule, not a coloured card */
+  border-radius: var(--radius);
+  font-size: var(--step-small);
+  line-height: 1.55;
+}
+.status--ok { border-color: var(--ink); background: var(--paper-sunk); }
+.status--error { border-color: var(--accent-dark); border-left-color: var(--accent-dark); background: var(--accent-wash); }
+.status__title {
+  font-family: var(--font-mono);
+  font-size: var(--step-label);
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.35rem;
+}
+.status--ok .status__title { color: var(--ink); }
+.status--error .status__title { color: var(--accent-dark); }
+.status ul { margin: 0.4rem 0 0; padding-left: 1.1rem; list-style: disc; }
+.status li + li { margin-top: 0.2rem; }
+
+/* The composed reply, shown after a valid submit. */
+.status__body {
+  margin-top: 0.7rem;
+  padding: 0.7rem;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  font-family: var(--font-mono);
+  font-size: var(--step-label);
+  line-height: 1.7;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 16rem;
+  overflow-y: auto;
+}
+.status__tools {
+  margin-top: 0.7rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.status__tools .btn { min-height: 40px; padding: 0.5rem 1rem; }
+
+.form__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  padding-top: var(--gap-sm);
+  border-top: 1px solid var(--rule);
+}
+.form__actions .btn { flex: 1 1 12rem; }
+
+/* Button in its pending state. */
+.btn[disabled] { opacity: 0.55; cursor: progress; }
+
+
+/* 14. Footer ============================================================= */
+.site-footer {
+  border-top: 1px solid var(--rule-strong);
+  background: var(--paper-sunk);
+  padding-block: var(--gap-xl) var(--gap-lg);
+  font-size: var(--step-small);
+}
+
+.site-footer__top {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--gap-xl);
+}
+
+.wordmark--footer { margin-bottom: var(--gap-sm); }
+
+.site-footer__blurb {
+  color: var(--ink-soft);
+  max-width: 34ch;
+}
+
+.site-footer__heading {
+  font-family: var(--font-mono);
+  font-size: var(--step-label);
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: var(--gap-sm);
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.site-footer__list { display: flex; flex-direction: column; gap: 0.5rem; }
+/* Internal links here are in-page anchors to ids that exist above. */
+  a[href^="#"]::before, a[href^="mailto:"]::before,
+  a[href^="tel:"]::before, a[href^="http"]::before,
+  .btn::before, .site-footer__list a::before { content: ""; }
+
+.site-footer__list a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--rule); }
+.site-footer__list a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+.site-footer__list li { line-height: 1.5; }
+
+/* Static marker for a link that opens a new tab. Not an icon font and not
+   animated, so it stays out of the way of the label. */
+.external {
+  display: inline-block;
+  margin-left: 0.3em;
+  font-size: 0.85em;
+  line-height: 1;
+}
+
+.site-footer__note {
+  margin-top: var(--gap-sm);
+  font-family: var(--font-mono);
+  font-size: var(--step-label);
+  color: var(--ink-faint);
+}
+
+.site-footer__bottom {
+  margin-top: var(--gap-xl);
+  padding-top: var(--gap);
+  border-top: 1px solid var(--rule);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.site-footer__copy { font-family: var(--font-mono); font-size: var(--step-label); letter-spacing: 0.06em; }
+.site-footer__fiction { color: var(--ink-faint); max-width: 70ch; font-size: var(--step-small); }
+
+
+/* 15. Reveal animations ================================================== */
+/* Elements start hidden only once JS confirms it can reveal them again. */
+.js-reveal .reveal {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition-delay: var(--reveal-delay, 0s);
+}
+.js-reveal .reveal.is-visible { opacity: 1; transform: none; }
+
+/* Hero copy fades up once on load. */
+.js-reveal .hero__copy,
+.js-reveal .hero__figure {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.js-reveal .hero__copy { transition-delay: 0.05s; }
+.js-reveal .hero__figure { transition-delay: 0.2s; }
+.js-reveal .hero__copy.is-visible,
+.js-reveal .hero__figure.is-visible { opacity: 1; transform: none; }
+
+/* The schematic draws itself in. Dash length is measured by JS per path. */
+.js-reveal .drawing .draw {
+  stroke-dasharray: var(--len, 1000);
+  stroke-dashoffset: var(--len, 1000);
+  transition: stroke-dashoffset 1.5s ease-out;
+}
+.js-reveal .drawing .draw.is-visible { stroke-dashoffset: 0; }
+
+
+/* 16. Responsive overrides =============================================== */
+@media (min-width: 620px) {
+  .deflist__row,
+  .contact__row { grid-template-columns: 10rem minmax(0, 1fr); }
+  .site-footer__top { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* The fact bar holds four labelled figures. Two columns reads comfortably from
+   320px, but four only once each column is wide enough that the labels stay on
+   one or two lines. Between roughly 880 and 1000px the desktop grid is already
+   in play and four columns squeezed them onto three lines each. */
+@media (min-width: 1000px) {
+  .factbar { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+@media (min-width: 880px) {
+  /* --- two-column hero, drawing on the right --- */
+  .hero__inner {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: var(--gap-xl) clamp(2rem, 4vw, 4.5rem);
+  }
+  .about__inner { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); }
+  .contact__inner { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); }
+  .form__row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  /* --- service index: number in its own column --- */
+  .index-list__item {
+    grid-template-columns: 4.5rem minmax(0, 1fr);
+    padding-block: var(--gap-xl);
+  }
+
+  /* Two quotes on the first row, the third centred below. An uneven grid
+     reads more like a magazine than three matching boxes. */
+  .quotes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .quote:nth-child(3) { grid-column: 1 / -1; max-width: 34rem; }
+
+  .site-footer__top { grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr)); }
+  .site-footer__bottom {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--gap-lg);
+  }
+}
+
+/* Below 880px the nav collapses into the hamburger panel. */
+@media (max-width: 879px) {
+  .nav-toggle { display: inline-flex; }
+
+  .site-nav {
+    position: fixed;
+    inset: var(--header-h) 0 auto 0;      /* directly under the header */
+    max-height: calc(100dvh - var(--header-h));
+    overflow-y: auto;
+    background: var(--paper-raised);
+    border-bottom: 1px solid var(--rule-strong);
+    /* Collapsed by default; the open class in main.js reveals it. */
+    display: none;
+  }
+  .site-nav.is-open { display: block; }
+
+  .site-nav__list {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 0.5rem var(--gutter) 1.25rem;
+  }
+  .site-nav__list li { border-bottom: 1px solid var(--rule); }
+  .site-nav__list li:last-child { border-bottom: 0; }
+
+  .site-nav__link {
+    /* Full-width tap target on a phone. */
+    padding: 1rem 0;
+    font-size: 1rem;
+    border-bottom: 0;
+  }
+  .site-nav__link[aria-current="true"] { color: var(--accent); }
+  .site-nav__link:hover { border-bottom-color: transparent; }
+
+  /* Stops the page behind the panel scrolling while it is open. */
+  body.nav-open { overflow: hidden; }
+}
+
+@media (min-width: 1200px) {
+  .hero__inner { grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); }
+}
+
+
+.noscript {
+  border-top: 1px solid var(--rule-strong);
+  background: var(--paper-sunk);
+  padding: var(--gap) var(--gutter);
+  font-size: var(--step-small);
+  color: var(--ink-soft);
+}
+.noscript p { max-width: var(--container); margin-inline: auto; }
+
+
+/* 17. Reduced motion and print =========================================== */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  /* Everything lands in its final state. Nothing is left invisible. */
+  .js-reveal .reveal,
+  .js-reveal .hero__copy,
+  .js-reveal .hero__figure {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .js-reveal .drawing .draw { stroke-dashoffset: 0; transition: none; }
+
+  .nav-toggle__bar,
+  .btn,
+  .js-reveal .reveal { transition: none; }
+}
+
+@media print {
+  .grain, .site-header, .nav-toggle, .form, .hero__figure, .noscript { display: none; }
+  body { background: #fff; color: #000; }
+  .section { padding-block: 1.5rem; }
+  a::after { content: " (" attr(href) ")"; font-size: 0.75em; }
+  .site-nav__link::after, .site-footer__list a[href^="#"]::after { content: ""; }
+}

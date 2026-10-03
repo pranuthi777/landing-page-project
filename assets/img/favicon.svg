@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Ridgeway Instrument Co.">
+  <title>Ridgeway Instrument Co.</title>
+  <!-- Flat two-colour mark: an ink square with a ridge line across it.
+       Matches assets/img/favicon.ico, which tools/generate-icons.mjs builds
+       from the same geometry. -->
+  <rect width="64" height="64" fill="#1b1a15"/>
+  <path d="M8 45 L21 31 L30 40 L44 19 L56 31" fill="none" stroke="#f8f5ee" stroke-width="6" stroke-linejoin="miter" stroke-linecap="butt"/>
+</svg>
